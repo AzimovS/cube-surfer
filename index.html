@@ -104,7 +104,7 @@
 
       // this is where we hit the ground
       if (boxCollision({ box1: this, box2: ground })) {
-        const friction = 0.5
+        const friction = 0.5;
         this.velocity.y *= friction;
         this.velocity.y = -this.velocity.y;
       } else this.position.y += this.velocity.y;
@@ -213,8 +213,9 @@
     }
   });
 
-  const enemies = [];
+  let enemies = [];
 
+  let score = 0;
   let frames = 0;
   let spawnRate = 200;
   function animate() {
@@ -235,7 +236,11 @@
       if (boxCollision({ box1: cube, box2: enemy })) {
         cancelAnimationFrame(animateionId);
       }
+      if (enemy.position.y < -300) {
+        scene.remove(enemy);
+      }
     });
+    enemies = enemies.filter((enemy) => enemy.position.y > -300);
 
     if (frames % spawnRate === 0) {
       if (spawnRate > 20) spawnRate -= 20;
@@ -260,12 +265,10 @@
       enemy.castShadow = true;
       scene.add(enemy);
       enemies.push(enemy);
+      score += 1;
     }
 
     frames++;
-    // cube.position.y += -0.01;
-    // cube.rotation.x += 0.01;
-    // cube.rotation.y += 0.01;
   }
   animate();
 </script>
