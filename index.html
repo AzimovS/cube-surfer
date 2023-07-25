@@ -173,6 +173,9 @@
     w: {
       pressed: false,
     },
+    space: {
+      canPress: true,
+    },
   };
 
   window.addEventListener('keydown', (event) => {
@@ -191,7 +194,10 @@
         keys.w.pressed = true;
         break;
       case 'Space':
-        cube.velocity.y = 0.08;
+        if (keys.space.canPress) {
+          cube.velocity.y = 0.08;
+        }
+        keys.space.canPress = false;
         break;
     }
   });
@@ -229,6 +235,10 @@
 
     if (keys.s.pressed) cube.velocity.z = 0.05;
     else if (keys.w.pressed) cube.velocity.z = -0.05;
+
+    if (cube.bottom - ground.top <= 0.1) {
+      keys.space.canPress = true;
+    }
 
     if (cube.position.y < -15) {
       cancelAnimationFrame(animateionId);
