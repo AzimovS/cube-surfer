@@ -230,6 +230,10 @@
     if (keys.s.pressed) cube.velocity.z = 0.05;
     else if (keys.w.pressed) cube.velocity.z = -0.05;
 
+    if (cube.position.y < -15) {
+      cancelAnimationFrame(animateionId);
+    }
+
     cube.update(ground);
     enemies.forEach((enemy) => {
       enemy.update(ground);
