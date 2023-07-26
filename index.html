@@ -3,7 +3,25 @@
     margin: 0;
     background: #0c4a6e;
   }
+
+  #end-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+  }
 </style>
+<body>
+  <div id="end-screen" style="display: none">
+    <h1>Game Over</h1>
+    <p>Your Score: <span id="score">0</span></p>
+  </div>
+</body>
 
 <script
   async
@@ -224,6 +242,14 @@
   let score = 0;
   let frames = 0;
   let spawnRate = 200;
+
+  function showEndScreen() {
+    const endScreen = document.getElementById('end-screen');
+    const scoreElement = document.getElementById('score');
+    scoreElement.textContent = score;
+    endScreen.style.display = 'block';
+  }
+
   function animate() {
     const animateionId = requestAnimationFrame(animate);
     renderer.render(scene, camera);
@@ -242,6 +268,7 @@
 
     if (cube.position.y < -15) {
       cancelAnimationFrame(animateionId);
+      showEndScreen()
     }
 
     cube.update(ground);
@@ -249,6 +276,7 @@
       enemy.update(ground);
       if (boxCollision({ box1: cube, box2: enemy })) {
         cancelAnimationFrame(animateionId);
+        showEndScreen()
       }
       if (enemy.position.y < -300) {
         scene.remove(enemy);
