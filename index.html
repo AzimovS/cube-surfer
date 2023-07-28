@@ -24,6 +24,24 @@
     text-align: center;
     border-radius: 10px;
   }
+
+  #restart-button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  #restart-button:hover {
+    background-color: #45a049;
+  }
+
+  #restart-button:active {
+    background-color: #3e8e41;
+  }
 </style>
 <body>
   <div id="score">Score: 0</div>
@@ -31,6 +49,7 @@
   <div id="end-screen" style="display: none">
     <h1>Game Over</h1>
     <p>Your Score: <span id="finalScore">0</span></p>
+    <button id="restart-button">Restart</button>
   </div>
 </body>
 
@@ -223,6 +242,7 @@
         keys.w.pressed = true;
         break;
       case 'Space':
+        console.log(keys.space.canPress);
         if (keys.space.canPress) {
           cube.velocity.y = 0.08;
         }
@@ -255,15 +275,33 @@
   let spawnRate = 200;
 
   function updateScoreDisplay() {
-      const scoreElement = document.getElementById('score');
-      scoreElement.textContent = `Score: ${score}`;
-    }
+    const scoreElement = document.getElementById('score');
+    scoreElement.textContent = `Score: ${score}`;
+  }
 
   function showEndScreen() {
     const endScreen = document.getElementById('end-screen');
     const scoreElement = document.getElementById('finalScore');
     scoreElement.textContent = score;
     endScreen.style.display = 'block';
+  }
+
+  const restartButton = document.getElementById('restart-button');
+  restartButton.addEventListener('click', restartGame);
+
+  function restartGame() {
+    const endScreen = document.getElementById('end-screen');
+    endScreen.style.display = 'none';
+
+    for (let i = enemies.length; i >= 0; i--) {
+      scene.remove(enemies[i]);
+    }
+    cube.position.set(0, -0.01, 0);
+    score = 0;
+    enemies = [];
+    frames = 0;
+    spawnRate = 200;
+    animate();
   }
 
   function animate() {
@@ -282,7 +320,7 @@
       keys.space.canPress = true;
     }
 
-    if (cube.position.y < -15) {
+    if (cube.position.y < -3) {
       cancelAnimationFrame(animateionId);
       showEndScreen();
     }
