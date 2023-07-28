@@ -222,6 +222,7 @@
       pressed: false,
     },
     space: {
+      pressed: false,
       canPress: true,
     },
   };
@@ -242,10 +243,10 @@
         keys.w.pressed = true;
         break;
       case 'Space':
-        console.log(keys.space.canPress);
-        if (keys.space.canPress) {
+        if (keys.space.canPress && !keys.space.pressed) {
           cube.velocity.y = 0.08;
         }
+        keys.space.pressed = true;
         keys.space.canPress = false;
         break;
     }
@@ -264,6 +265,9 @@
         break;
       case 'KeyW':
         keys.w.pressed = false;
+        break;
+      case 'Space':
+        keys.space.pressed = false;
         break;
     }
   });
@@ -316,7 +320,11 @@
     if (keys.s.pressed) cube.velocity.z = 0.05;
     else if (keys.w.pressed) cube.velocity.z = -0.05;
 
-    if (cube.bottom - ground.top <= 0.1) {
+    if (
+      cube.bottom - ground.top <= 0.1 &&
+      ((cube.left >= ground.left && cube.left <= ground.right) ||
+        (cube.right <= ground.right && cube.right >= ground.left))
+    ) {
       keys.space.canPress = true;
     }
 
