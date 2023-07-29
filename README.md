@@ -4,13 +4,17 @@
     3D game using three.js
     <br />
     <br />
-    <a href="">View Demo</a>
+    <a href="https://azimovs.github.io/cube-surfer/">View Demo</a>
     ·
     <a href="https://github.com/AzimovS/cube-surfer/issues">Report Bug</a>
     ·
     <a href="https://github.com/AzimovS/cube-surfer/issues">Request Feature</a>
   </p>
 <!-- ABOUT THE PROJECT -->
+<div align="center">
+  ![demo (1)](https://github.com/AzimovS/cube-surfer/assets/35425540/756dca39-2d7e-420a-a7d9-93f64813b6fb)
+</div>
+
 
 A browser game where players control a cube that slides on the ground and must avoid obstacles.
 The game was developed with the [tutorial](https://www.youtube.com/watch?v=sPereCgQnWQ&ab_channel=ChrisCourses) by Chris Courses. The additional features and fixes implemented by me:
