@@ -26,4 +26,4 @@ The game was developed with the [tutorial](https://www.youtube.com/watch?v=sPere
 * Removed the possibility of jumping multiple times
 
 ### Built With
-* [three.js](https://www.mysql.com/](https://threejs.org/)https://threejs.org/)
+* [three.js](https://threejs.org/)
